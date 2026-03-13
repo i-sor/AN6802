@@ -40,18 +40,23 @@ def foodexp():
     r = model.predict([[q]])
     return(render_template("foodexp.html",r=r[0][0]))
 
+@app.route("/chatbot",methods=["get","post"])
+def chatbot():
+    return(render_template("chatbot.html"))
+
 @app.route("/roe",methods=["get","post"])
 def roe():
-    
-    return(render_template("roe.html"))
+    r = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": "Please explain RoE in 20 words."}
+        ]
+    )
+    return(render_template("roe.html", r=r.choices[0].message.content))
 
 @app.route("/generalquestion",methods=["get","post"])
 def generalquestion():
     return(render_template("generalquestion.html"))
-
-@app.route("/groq",methods=["get","post"])
-def groq():
-    return(render_template("groq.html"))
 
 if __name__ == "__main__":
     app.run()
