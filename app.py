@@ -3,7 +3,7 @@ import joblib
 import os
 from groq import Groq
 
-os.environ["GROQ_API_KEY"] = "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"
+#os.environ["GROQ_API_KEY"] = ""
 
 model = joblib.load("foodexp.pkl")
 
@@ -54,9 +54,20 @@ def roe():
     )
     return(render_template("roe.html", r=r.choices[0].message.content))
 
-@app.route("/generalquestion",methods=["get","post"])
-def generalquestion():
-    return(render_template("generalquestion.html"))
+@app.route("/generalQuestion",methods=["get","post"])
+def generalQuestion():
+    return(render_template("generalQuestion.html"))
+
+@app.route("/groqReply",methods=["get","post"])
+def groqReply():
+    q = request.form.get("q")
+    r = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": q}
+        ]
+    )
+    return(render_template("groqReply.html",r=r.choices[0].message.content))
 
 if __name__ == "__main__":
     app.run()

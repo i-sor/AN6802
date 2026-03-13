@@ -5,12 +5,10 @@
 
 <body>
     <div class="container">
-        <h2>Financial Analysis Chatbot</h2>
-        <form action = "/roe" method = "post">
-            <input type = "submit" value = "What is RoE">
-        </form>
-        <form action = "/generalQuestion" method = "post">
-            <input type = "submit" value = "General Question">
+        <h2>Your Query:</h2>
+        <form action = "/groqReply" method = "post">
+            <input type = "text" name = "q">
+            <input type = "submit" value = "Enter">
         </form>
         <form action = "/main" method = "post">
             <input type = "submit" value = "Main">
