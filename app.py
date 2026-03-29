@@ -73,5 +73,9 @@ def groqReply():
 def equity():
     return(render_template("equity.html"))
 
+@app.route("/apple",methods=["get","post"])
+def apple():
+    return(render_template("apple.html"))
+
 if __name__ == "__main__":
     app.run()
